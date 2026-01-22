@@ -29,7 +29,23 @@
         "command": "terminal-tooling.runInNewTerminal",
         "title": "Run command in new terminal"
       }
-    ]
+    ],
+    "menus": {
+      "terminal/context": [
+        {
+          "command": "terminal-tooling.copySelection",
+          "group": "navigation"
+        },
+        {
+          "command": "terminal-tooling.openLink",
+          "group": "navigation"
+        },
+        {
+          "command": "terminal-tooling.runInNewTerminal",
+          "group": "navigation"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "pnpm run package",
