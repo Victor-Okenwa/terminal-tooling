@@ -1,21 +1,33 @@
 {
   "name": "terminal-tooling",
-  "displayName": "terminal-tooling",
-  "description": "",
-  "version": "0.0.1",
+  "displayName": "Terminal Tools and Actions",
+  "description": "Quick actions on highlighted text in the integrated terminal (run command, open links, copy, etc.)",
+  "version": "0.0.0",
   "engines": {
     "vscode": "^1.108.0"
   },
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onCommand:terminal-tooling.copySelection",
+    "onCommand:terminal-tooling.openLink",
+    "onCommand:terminal-tooling.runInNewTerminal"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "terminal-tooling.helloWorld",
-        "title": "Hello World"
+        "command": "terminal-tooling.copySelection",
+        "title": "Copy Selection"
+      },
+      {
+        "command": "terminal-tooling.openLink",
+        "title": "Open Link"
+      },
+      {
+        "command": "terminal-tooling.runInNewTerminal",
+        "title": "Run command in new terminal"
       }
     ]
   },
