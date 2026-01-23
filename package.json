@@ -9,11 +9,7 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [
-    "onCommand:terminal-tooling.copySelection",
-    "onCommand:terminal-tooling.openLink",
-    "onCommand:terminal-tooling.runInNewTerminal"
-  ],
+  "activationEvents": [],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
@@ -34,15 +30,18 @@
       "terminal/context": [
         {
           "command": "terminal-tooling.copySelection",
-          "group": "navigation"
+          "group": "1_copypaste@1",
+          "when": "terminalHasSelection"
         },
         {
           "command": "terminal-tooling.openLink",
-          "group": "navigation"
+          "group": "1_copypaste@2",
+          "when": "terminalHasSelection"
         },
         {
           "command": "terminal-tooling.runInNewTerminal",
-          "group": "navigation"
+          "group": "1_copypaste@3",
+          "when": "terminalHasSelection"
         }
       ]
     }
