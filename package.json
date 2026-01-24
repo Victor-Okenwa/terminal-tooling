@@ -41,7 +41,7 @@
         {
           "command": "terminal-tooling.runInNewTerminal",
           "group": "1_copypaste@3",
-          "when": "terminalHasSelection"
+          "when": "terminalEditorFocus"
         }
       ]
     }
