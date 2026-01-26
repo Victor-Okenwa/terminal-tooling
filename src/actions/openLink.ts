@@ -1,19 +1,23 @@
+// src/actions/openLink.ts
 import * as vscode from 'vscode';
 import { getTerminalSelection } from '../terminal/selection';
-import { isUrl } from '../utils';
-import { sanitizeSelection } from '../utils';
+import { isUrl, normalizeUrl } from '../utils';
 
-export async function openLink() {
+export async function openLink(): Promise<void> {
     const text = await getTerminalSelection();
+
     if (!text) {
         vscode.window.showWarningMessage('No text selected in terminal.');
         return;
     }
-    const sanitized = sanitizeSelection(text);
-    if (!isUrl(sanitized)) {
-        vscode.window.showWarningMessage('Selected text does not look like a URL.');
+
+    if (!isUrl(text)) {
+        vscode.window.showWarningMessage('Selected text is not a valid URL.');
         return;
     }
-    await vscode.env.openExternal(vscode.Uri.parse(sanitized));
-    vscode.window.showInformationMessage('Opening in browser!');
+
+    const url = normalizeUrl(text);
+    await vscode.env.openExternal(vscode.Uri.parse(url));
+
+    vscode.window.showInformationMessage('✓ Opening in browser');
 }

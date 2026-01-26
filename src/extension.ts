@@ -1,16 +1,17 @@
+// src/extension.ts
 import * as vscode from 'vscode';
 import { setupStatusBar } from './ui/statusBar';
 import { copySelection } from './actions/copy';
 import { runInNewTerminal } from './actions/runInTerminal';
 import { openLink } from './actions/openLink';
 
-export function activate(context: vscode.ExtensionContext) {
-	console.log('✅ Terminal Tools and Actions is now active');
+export function activate(context: vscode.ExtensionContext): void {
+	console.log('✅ Terminal Tooling extension activated');
 
-	// Setup UI
+	// Setup status bar UI
 	setupStatusBar(context);
 
-	// Register commands (call the action functions)
+	// Register commands
 	context.subscriptions.push(
 		vscode.commands.registerCommand('terminal-tooling.copySelection', copySelection),
 		vscode.commands.registerCommand('terminal-tooling.runInNewTerminal', runInNewTerminal),
@@ -18,4 +19,6 @@ export function activate(context: vscode.ExtensionContext) {
 	);
 }
 
-export function deactivate() { }
+export function deactivate(): void {
+	console.log('Terminal Tooling extension deactivated');
+}

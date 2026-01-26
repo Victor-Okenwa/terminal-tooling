@@ -1,17 +1,21 @@
+// src/actions/runInTerminal.ts
 import * as vscode from 'vscode';
 import { getTerminalSelection } from '../terminal/selection';
-import { sanitizeSelection } from '../utils';
+import { sanitizeCommand } from '../utils';
 
-export async function runInNewTerminal() {
+export async function runInNewTerminal(): Promise<void> {
     const text = await getTerminalSelection();
+
     if (!text) {
         vscode.window.showWarningMessage('No text selected in terminal.');
         return;
     }
 
-    const sanitized = sanitizeSelection(text);
-    const newTerminal = vscode.window.createTerminal('New Terminal');
-    newTerminal.show();
-    newTerminal.sendText(sanitized, true); // true adds newline and executes
-    vscode.window.showInformationMessage('Running in new terminal!');
+    const command = sanitizeCommand(text);
+    const terminal = vscode.window.createTerminal('Quick Run');
+
+    terminal.show();
+    terminal.sendText(command, true);
+
+    vscode.window.showInformationMessage(`✓ Running: ${command.substring(0, 30)}...`);
 }
