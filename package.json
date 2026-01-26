@@ -24,27 +24,12 @@
       {
         "command": "terminal-tooling.runInNewTerminal",
         "title": "Run command in new terminal"
+      },
+      {
+        "command": "terminal-tooling.helloWorld",
+        "title": "Hello World"
       }
-    ],
-    "menus": {
-      "terminal/context": [
-        {
-          "command": "terminal-tooling.copySelection",
-          "group": "1_copypaste@1",
-          "when": "terminalHasSelection"
-        },
-        {
-          "command": "terminal-tooling.openLink",
-          "group": "1_copypaste@2",
-          "when": "terminalHasSelection"
-        },
-        {
-          "command": "terminal-tooling.runInNewTerminal",
-          "group": "1_copypaste@3",
-          "when": "terminalEditorFocus"
-        }
-      ]
-    }
+    ]
   },
   "scripts": {
     "vscode:prepublish": "pnpm run package",

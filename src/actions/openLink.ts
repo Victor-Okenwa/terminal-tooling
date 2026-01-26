@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import { getTerminalSelection } from '../terminal/selection';
-import { isUrl } from '../utils/isUrl';
-import { sanitizeSelection } from '../utils/sanitize';
+import { isUrl } from '../utils';
+import { sanitizeSelection } from '../utils';
 
 export async function openLink() {
     const text = await getTerminalSelection();

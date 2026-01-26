@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { getTerminalSelection } from '../terminal/selection';
-import { sanitizeSelection } from '../utils/sanitize';
+import { sanitizeSelection } from '../utils';
 
 export async function runInNewTerminal() {
     const text = await getTerminalSelection();
@@ -8,7 +8,7 @@ export async function runInNewTerminal() {
         vscode.window.showWarningMessage('No text selected in terminal.');
         return;
     }
-    
+
     const sanitized = sanitizeSelection(text);
     const newTerminal = vscode.window.createTerminal('New Terminal');
     newTerminal.show();

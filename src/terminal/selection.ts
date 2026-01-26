@@ -1,25 +1,50 @@
+// src/terminal/selection.ts
 import * as vscode from 'vscode';
 
+/**
+ * Gets the current terminal selection without affecting clipboard
+ * Returns undefined if no selection or terminal not active
+ */
 export async function getTerminalSelection(): Promise<string | undefined> {
-    if (!vscode.window.activeTerminal) {
+    const terminal = vscode.window.activeTerminal;
+    if (!terminal) {
         return undefined;
     }
 
-    // Save original clipboard
+    // Store original clipboard content
     const originalClipboard = await vscode.env.clipboard.readText();
 
-    // Copy terminal selection (does nothing if no selection)
-    await vscode.commands.executeCommand('workbench.action.terminal.copySelection');
+    try {
+        // Attempt to copy terminal selection
+        await vscode.commands.executeCommand('workbench.action.terminal.copySelection');
 
-    // Read what was copied
-    const copied = await vscode.env.clipboard.readText();
+        // Small delay to ensure clipboard is updated
+        await new Promise(resolve => setTimeout(resolve, 10));
 
-    console.log('Copied from terminal:', copied);
+        // Read copied content
+        const copied = await vscode.env.clipboard.readText();
 
-    // Restore original clipboard
-    await vscode.env.clipboard.writeText(originalClipboard);
+        // If clipboard didn't change, there was no selection
+        if (copied === originalClipboard) {
+            return undefined;
+        }
 
-    // Return trimmed text if non-empty
-    const trimmed = copied.trim();
-    return trimmed ? trimmed : undefined;
+        return copied.trim() || undefined;
+    } finally {
+        // Always restore original clipboard
+        await vscode.env.clipboard.writeText(originalClipboard);
+    }
+}
+
+/**
+ * Checks if there's an active terminal selection without reading it
+ * More efficient for polling scenarios
+ */
+export async function hasTerminalSelection(): Promise<boolean> {
+    if (!vscode.window.activeTerminal) {
+        return false;
+    }
+
+    const selection = await getTerminalSelection();
+    return !!selection;
 }
